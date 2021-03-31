@@ -45,7 +45,7 @@ export default async (req, res) => {
 			if (inputExists) {
 				const cmd = `${ocrmypdf} ${lang ? '-l ' + lang : ''} ${
 					opt ?? ''
-				} ${inputPath} ${outputPath}`;
+				} "${inputPath}" "${outputPath}"`;
 				console.log(cmd);
 				// const ls = await runShellCommand('ls -la');
 				// console.log(ls);
