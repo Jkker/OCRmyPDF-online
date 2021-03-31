@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { UPLOAD_DIR, OUTPUT_DIR, FS_PORT } = process.env;
 // const fs = require('fs-extra');
 const express = require('express');
@@ -13,5 +14,5 @@ app.all('*', proxy('localhost:3000'));
 
 console.log(path.join(CWD, 'processed'));
 
-console.log('Sever started on port', 10010);
-app.listen(10010);
+console.log('Sever started on port', FS_PORT);
+app.listen(FS_PORT);
