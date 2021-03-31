@@ -3,6 +3,10 @@ import multer from 'multer';
 import initMiddleware from '../../utils/initMiddleware';
 const fs = require('fs-extra');
 require('dotenv').config();
+const limits = {
+	files: 1, // allow only 1 file per request
+	fileSize: 500 * 1024 * 1024, // 500 MB (max file size)
+};
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -14,7 +18,7 @@ const storage = multer.diskStorage({
 	},
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage, limits });
 
 // for parsing multipart/form-data
 // note that Multer limits to 1MB file size by default
