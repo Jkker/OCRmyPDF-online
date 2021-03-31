@@ -2,10 +2,11 @@
 import multer from 'multer';
 import initMiddleware from '../../utils/initMiddleware';
 const fs = require('fs-extra');
+require('dotenv').config();
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, 'uploads/');
+		cb(null, process.env.UPLOAD_DIR);
 	},
 	filename: function (req, file, cb) {
 		const uniqueSuffix = Date.now() + '' + Math.round(Math.random() * 1e9);
@@ -13,7 +14,7 @@ const storage = multer.diskStorage({
 	},
 });
 
-const upload = multer({ storage: storage, dest: 'uploads/' });
+const upload = multer({ storage: storage });
 
 // for parsing multipart/form-data
 // note that Multer limits to 1MB file size by default
@@ -28,11 +29,11 @@ export const config = {
 };
 
 export default async (req, res) => {
-	fs.ensureDir('uploads/');
+	await fs.ensureDir(process.env.UPLOAD_DIR);
 	if (req.method === 'POST') {
 		try {
 			await multerAny(req, res);
-			console.log(req.files);
+			// console.log(req.files);
 			res.json(
 				JSON.stringify(
 					req.files.map((f) => {
