@@ -97,11 +97,11 @@ export default function Home() {
 		}
 	};
 	const checkboxOptions = [
+		{ label: 'Rotate Pages 自动旋转', value: '--rotate-pages --rotate-pages-threshold 3' },
 		{
 			label: 'Layout Double 双页（左右并排）',
 			value: "--clean --clean-final --unpaper-args '--layout double'",
 		},
-		{ label: 'Rotate Pages 自动旋转', value: '--rotate-pages --rotate-pages-threshold 3' },
 		{ label: 'Deskew 矫正歪斜', value: '--deskew' },
 		{ label: 'Redo-OCR 重新OCR', value: '--redo-ocr' },
 		{ label: 'Remove-Background 去除背景', value: '--remove-background' },
@@ -185,6 +185,7 @@ export default function Home() {
 							<Checkbox.Group
 								options={checkboxOptions}
 								onChange={(v) => setParams({ ...params, opt: v })}
+								value={params.opt}
 								className='my-2'
 							/>
 							<Select
@@ -193,6 +194,7 @@ export default function Home() {
 								className='w-full my-2'
 								onChange={(v) => setParams({ ...params, lang: v })}
 								options={languageOptions}
+								value={params.lang}
 							/>
 						</div>
 						<Button
